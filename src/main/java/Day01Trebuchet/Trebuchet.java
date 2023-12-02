@@ -1,17 +1,30 @@
 package main.java.Day01Trebuchet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import static main.java.utils.FileAOC.readToArray;
+import static java.lang.Integer.parseInt;
+import static main.java.utils.UtilAOC.*;
 
 public class Trebuchet {
-    // read each line of the file
-    // find first num
-    // find last num
-    // add all the numbers
+    public Integer printCalibrationValue() throws IOException {
 
-    public List<String> printInput() throws IOException {
-        return readToArray("calibration-doc.txt");
+        List<String> inputList = readFileToStringArray("calibration-doc.txt");
+
+        List<Integer> intList = new ArrayList<>();
+
+        inputList.forEach(string -> {
+            List<Character> characterList = convertStringToCharArray(string);
+            List<Integer> numList = findIntFromCharArray(characterList);
+
+            // put first and last digit together
+            Integer firstNum = numList.get(0);
+            Integer lastNum = numList.get(numList.size() - 1);
+            String s = firstNum + String.valueOf(lastNum);
+            intList.add(parseInt(s));
+        });
+
+        return intList.stream().reduce(0, Integer::sum);
     }
 }
