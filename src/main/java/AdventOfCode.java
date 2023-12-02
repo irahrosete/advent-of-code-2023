@@ -1,6 +1,7 @@
 package main.java;
 
-import main.java.Day01Trebuchet.Trebuchet;
+import main.java.Day01Trebuchet.TrebuchetOne;
+import main.java.Day01Trebuchet.TrebuchetTwo;
 
 import java.io.IOException;
 
@@ -11,8 +12,12 @@ public class AdventOfCode {
         out.println("Advent Of Code 2023");
 
         out.println("\n--- Day 01 ---");
-        Trebuchet trebuchet = new Trebuchet();
+        TrebuchetOne trebuchet = new TrebuchetOne();
         Integer calibrationValue = trebuchet.printCalibrationValue();
         out.println(calibrationValue);
+
+        TrebuchetTwo trebuchetTwo = new TrebuchetTwo();
+        Integer correctCalibrationValue = trebuchetTwo.printCalibrationValue();
+        out.println(correctCalibrationValue);
     }
 }
