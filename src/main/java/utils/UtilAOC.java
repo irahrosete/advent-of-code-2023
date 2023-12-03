@@ -1,7 +1,6 @@
 package main.java.utils;
 
 import main.java.day02cubeconundrum.CubeGame;
-import main.java.day02cubeconundrum.CubeGameResult;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class UtilAOC {
             // make line into CubeGame object
             int colonIndex = line.indexOf(":");
             String game = line.substring(5, colonIndex);
-            List<CubeGameResult> results = List.of(new CubeGameResult(line.substring(colonIndex + 2)));
+            List<String> results = List.of(line.substring(colonIndex + 2));
             CubeGame cubeGame = new CubeGame(game, results);
             input.add(cubeGame);
         }

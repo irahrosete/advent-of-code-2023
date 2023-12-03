@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.System.out;
 import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
@@ -22,19 +23,50 @@ public class CubeConundrumOne {
         List<CubeGame> transformedGame = transformCubeGameResults(inputList);
         Integer gameSum = 0;
 
-//        String combination = transformedGame.get(0).results().get(0).combination();
+        out.println(transformedGame);
+//        String combination = transformedGame.get(0).results().get(3);
 //        out.println(combination);
 
 
         transformedGame.forEach(cubeGame -> {
+
             out.println(cubeGame.game());
-            List<CubeGameResult> combinations = cubeGame.results();
+
+            List<String> combinations = cubeGame.results();
+            AtomicReference<String> redValue = new AtomicReference<String>("0");
+            AtomicReference<String> greenValue = new AtomicReference<String>("0");
+            AtomicReference<String> blueValue = new AtomicReference<String>("0");
 
             combinations.forEach(result -> {
-            String combination = result.combination();
-            // find red, green, blue
-            out.println(combination);
+                String line = result.replace("[", "");
+                line = line.replace("]", "");
 
+                List<String> newCombination = transformStringToList(line, ",");
+
+                newCombination.forEach(item -> {
+                    if (item.contains("red")) {
+                        int redIndex = item.indexOf("red");
+                        redValue.set(item.substring(0, redIndex).trim());
+                    }
+
+                    if (item.contains("green")) {
+                        int greenIndex = item.indexOf("green");
+                        greenValue.set(item.substring(0, greenIndex).trim());
+                    }
+
+                    if (item.contains("blue")) {
+                        int blueIndex = item.indexOf("blue");
+                        blueValue.set(item.substring(0, blueIndex).trim());
+                    }
+                });
+
+            // compare each colour and return boolean if within
+            out.print("redValue: ");
+            out.println(redValue);
+            out.print("greenValue: ");
+            out.println(greenValue);
+            out.print("blueValue: ");
+            out.println(blueValue);
             });
         });
 
@@ -45,17 +77,14 @@ public class CubeConundrumOne {
         List<CubeGame> newInputList = new ArrayList<>();
 
         initialInput.forEach(cubeGame -> {
-            List<CubeGameResult> cubeGameResults = new ArrayList<>();
+            List<String> cubeGameResults = new ArrayList<>();
 
             String delimiter = "; ";
             String results = cubeGame.results().toString();
 
             Scanner scanner = new Scanner(results);
             scanner.useDelimiter(delimiter);
-            scanner.forEachRemaining(res -> {
-                CubeGameResult combination = new CubeGameResult(res);
-                cubeGameResults.add(combination);
-            });
+            scanner.forEachRemaining(cubeGameResults::add);
 
             CubeGame newCubeGame = new CubeGame(cubeGame.game(), cubeGameResults);
             newInputList.add(newCubeGame);
@@ -63,4 +92,14 @@ public class CubeConundrumOne {
 
         return newInputList;
     }
+
+     private List<String> transformStringToList(String string, String delimiter) {
+         List<String> newObjectList = new ArrayList<>();
+
+         Scanner scanner = new Scanner(string);
+         scanner.useDelimiter(delimiter);
+         scanner.forEachRemaining(newObjectList::add
+         );
+         return newObjectList;
+     }
 }
