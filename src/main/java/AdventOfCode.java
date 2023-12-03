@@ -1,17 +1,22 @@
 package main.java;
 
-import main.java.Day01Trebuchet.TrebuchetOne;
-import main.java.Day01Trebuchet.TrebuchetTwo;
+import main.java.day01trebuchet.TrebuchetOne;
+import main.java.day01trebuchet.TrebuchetTwo;
+import main.java.day02cubeconundrum.CubeConundrumOne;
+import main.java.day02cubeconundrum.CubeGame;
 
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.System.out;
+import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
 
 public class AdventOfCode {
     public static void main(String[] args) throws IOException {
         out.println("Advent Of Code 2023");
 
         out.println("\n--- Day 01 ---");
+
         TrebuchetOne trebuchet = new TrebuchetOne();
         Integer calibrationValue = trebuchet.printCalibrationValue();
         out.println(calibrationValue);
@@ -19,5 +24,11 @@ public class AdventOfCode {
         TrebuchetTwo trebuchetTwo = new TrebuchetTwo();
         Integer correctCalibrationValue = trebuchetTwo.printCalibrationValue();
         out.println(correctCalibrationValue);
+
+        out.println("\n--- Day 02 ---");
+
+        CubeConundrumOne cubeConundrumOne = new CubeConundrumOne();
+//        out.println(cubeConundrumOne.checkPossibleGames(12, 13, 14));
+        cubeConundrumOne.checkPossibleGames(12, 13, 14);
     }
 }
