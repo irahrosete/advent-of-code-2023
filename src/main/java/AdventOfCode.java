@@ -3,6 +3,7 @@ package main.java;
 import main.java.day01trebuchet.TrebuchetOne;
 import main.java.day01trebuchet.TrebuchetTwo;
 import main.java.day02cubeconundrum.CubeConundrumOne;
+import main.java.day02cubeconundrum.CubeConundrumTwo;
 import main.java.day02cubeconundrum.CubeGame;
 
 import java.io.IOException;
@@ -30,7 +31,9 @@ public class AdventOfCode {
         CubeConundrumOne cubeConundrumOne = new CubeConundrumOne();
         Integer possibleGamesValue = cubeConundrumOne.checkPossibleGames(12, 13, 14);
         out.println(possibleGamesValue);
-//        out.println(cubeConundrumOne.checkPossibleGames(12, 13, 14));
-//        cubeConundrumOne.checkPossibleGames(12, 13, 14);
+
+        CubeConundrumTwo cubeConundrumTwo = new CubeConundrumTwo();
+        Integer sumPowerOfGames = cubeConundrumTwo.addGamesPower();
+        out.println(sumPowerOfGames);
     }
 }

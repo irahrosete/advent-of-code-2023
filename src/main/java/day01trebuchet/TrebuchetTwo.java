@@ -10,7 +10,7 @@ import static main.java.utils.UtilAOC.*;
 public class TrebuchetTwo {
     public Integer printCalibrationValue() throws IOException {
 
-        List<String> inputList = readFileLineToStringArray("calibration-doc-two.txt");
+        List<String> inputList = readFileLineToStringArray("calibration-doc.txt");
 
         List<Integer> intList = new ArrayList<>();
 

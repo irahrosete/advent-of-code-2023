@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Integer.parseInt;
+import static main.java.day02cubeconundrum.CubeUtil.arrangeCubeColours;
+import static main.java.day02cubeconundrum.CubeUtil.transformCubeGameResults;
 import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
 import static main.java.utils.UtilAOC.transformStringToList;
 
@@ -39,22 +41,7 @@ public class CubeConundrumOne {
                 line = line.replace("]", "");
 
                 List<String> newCombination = transformStringToList(line, ",");
-                newCombination.forEach(item -> {
-                    if (item.contains("red")) {
-                        int redIndex = item.indexOf("red");
-                        redValue.set(item.substring(0, redIndex).trim());
-                    }
-
-                    if (item.contains("green")) {
-                        int greenIndex = item.indexOf("green");
-                        greenValue.set(item.substring(0, greenIndex).trim());
-                    }
-
-                    if (item.contains("blue")) {
-                        int blueIndex = item.indexOf("blue");
-                        blueValue.set(item.substring(0, blueIndex).trim());
-                    }
-                });
+                arrangeCubeColours(newCombination, redValue, greenValue, blueValue);
 
 //                Combination finalCombination = new Combination(redValue.toString(), greenValue.toString(), blueValue.toString());
 //                List<Combination> rgb = new ArrayList<>(Collections.singleton(finalCombination));
@@ -62,6 +49,7 @@ public class CubeConundrumOne {
 //                out.println(rgb);
 
                 List<Integer> allowedCombi = new ArrayList<>(List.of());
+                
                 if (redCount >= (parseInt(redValue.toString()))) {
                     allowedCombi.add(1);
                 } else {
@@ -91,18 +79,5 @@ public class CubeConundrumOne {
         });
 
         return gameSum.stream().reduce(0, Integer::sum);
-    }
-
-    private List<CubeGame> transformCubeGameResults(List<CubeGame> initialInput) {
-        List<CubeGame> newInputList = new ArrayList<>();
-
-        initialInput.forEach(cubeGame -> {
-            String results = cubeGame.results().toString();
-            List<String> cubeGameResults = transformStringToList(results, "; ");
-            CubeGame newCubeGame = new CubeGame(cubeGame.game(), cubeGameResults);
-            newInputList.add(newCubeGame);
-        });
-
-        return newInputList;
     }
 }
