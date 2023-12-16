@@ -28,7 +28,9 @@ public class AdventOfCode {
         out.println("\n--- Day 02 ---");
 
         CubeConundrumOne cubeConundrumOne = new CubeConundrumOne();
+        Integer possibleGamesValue = cubeConundrumOne.checkPossibleGames(12, 13, 14);
+        out.println(possibleGamesValue);
 //        out.println(cubeConundrumOne.checkPossibleGames(12, 13, 14));
-        cubeConundrumOne.checkPossibleGames(12, 13, 14);
+//        cubeConundrumOne.checkPossibleGames(12, 13, 14);
     }
 }

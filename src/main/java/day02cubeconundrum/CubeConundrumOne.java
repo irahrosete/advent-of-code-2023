@@ -3,46 +3,42 @@ package main.java.day02cubeconundrum;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.lang.System.out;
+import static java.lang.Integer.parseInt;
 import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
+import static main.java.utils.UtilAOC.transformStringToList;
 
 public class CubeConundrumOne {
-    // scan each line and transform to array of objects
-    // Game 1: [{red: 0, green: 0, blue: 0}, {red: 1, green: 1, blue: 1}], Game 2: []
-    // loop through each game to find the game #
-        // loop through each array to find possible games
-            // loop through each object to compare red, green, blue with configuration
-    // sum up game #
+    // scan each line and transform to array of CubeGame objects
+    // CubeGame [{game: 1, results: [[2 blue, 4 green, 7 blue, 1 red, 14 green, 5 blue, 13 green, 1 red, 1 red, 7 blue, 11 green]]}, ]
+    // transform each results into grouped arrays [2 blue, 4 green][7 blue, 1 red, 14 green][5 blue,  13 green,  1 red][1 red,  7 blue,  11 green]
+    // transform each results further into new object Combination
+    // Combination {red: 0, green: 4, blue: 7}
+    // determine if a combination is allowed by comparing colour values
+    // if allowed, mark 1; otherwise, 0
+    // flatten all combinations for each CubeGame. if flattened combination does not include 0, add to gameSum array
+    // reduce gameSum array to total
 
-    // checkPossibleGames(red, green, blue)
     public Integer checkPossibleGames(Integer redCount, Integer greenCount, Integer blueCount) throws IOException {
         List<CubeGame> inputList = readFileLineToCubeGameArray("red-green-blue-game.txt");
         List<CubeGame> transformedGame = transformCubeGameResults(inputList);
-        Integer gameSum = 0;
-
-        out.println(transformedGame);
-//        String combination = transformedGame.get(0).results().get(3);
-//        out.println(combination);
-
+        List<Integer> gameSum = new ArrayList<>();
 
         transformedGame.forEach(cubeGame -> {
-
-            out.println(cubeGame.game());
-
             List<String> combinations = cubeGame.results();
-            AtomicReference<String> redValue = new AtomicReference<String>("0");
-            AtomicReference<String> greenValue = new AtomicReference<String>("0");
-            AtomicReference<String> blueValue = new AtomicReference<String>("0");
+            List<List<Integer>> allowedGames = new ArrayList<>();
+            List<Integer> flattenedAllowedGames = new ArrayList<>();
 
             combinations.forEach(result -> {
+                AtomicReference<String> redValue = new AtomicReference<String>("0");
+                AtomicReference<String> greenValue = new AtomicReference<String>("0");
+                AtomicReference<String> blueValue = new AtomicReference<String>("0");
+
                 String line = result.replace("[", "");
                 line = line.replace("]", "");
 
                 List<String> newCombination = transformStringToList(line, ",");
-
                 newCombination.forEach(item -> {
                     if (item.contains("red")) {
                         int redIndex = item.indexOf("red");
@@ -60,46 +56,53 @@ public class CubeConundrumOne {
                     }
                 });
 
-            // compare each colour and return boolean if within
-            out.print("redValue: ");
-            out.println(redValue);
-            out.print("greenValue: ");
-            out.println(greenValue);
-            out.print("blueValue: ");
-            out.println(blueValue);
+//                Combination finalCombination = new Combination(redValue.toString(), greenValue.toString(), blueValue.toString());
+//                List<Combination> rgb = new ArrayList<>(Collections.singleton(finalCombination));
+//                out.print("rgb: ");
+//                out.println(rgb);
+
+                List<Integer> allowedCombi = new ArrayList<>(List.of());
+                if (redCount >= (parseInt(redValue.toString()))) {
+                    allowedCombi.add(1);
+                } else {
+                    allowedCombi.add(0);
+                }
+
+                if (greenCount >= (parseInt(greenValue.toString()))) {
+                    allowedCombi.add(1);
+                } else {
+                    allowedCombi.add(0);
+                }
+
+                if (blueCount >= (parseInt(blueValue.toString()))) {
+                    allowedCombi.add(1);
+                } else {
+                    allowedCombi.add(0);
+                }
+
+                allowedGames.add(allowedCombi);
+
             });
+
+            allowedGames.forEach(flattenedAllowedGames::addAll);
+            if (!flattenedAllowedGames.contains(0)) {
+                gameSum.add(parseInt(cubeGame.game()));
+            }
         });
 
-        return gameSum;
+        return gameSum.stream().reduce(0, Integer::sum);
     }
 
     private List<CubeGame> transformCubeGameResults(List<CubeGame> initialInput) {
         List<CubeGame> newInputList = new ArrayList<>();
 
         initialInput.forEach(cubeGame -> {
-            List<String> cubeGameResults = new ArrayList<>();
-
-            String delimiter = "; ";
             String results = cubeGame.results().toString();
-
-            Scanner scanner = new Scanner(results);
-            scanner.useDelimiter(delimiter);
-            scanner.forEachRemaining(cubeGameResults::add);
-
+            List<String> cubeGameResults = transformStringToList(results, "; ");
             CubeGame newCubeGame = new CubeGame(cubeGame.game(), cubeGameResults);
             newInputList.add(newCubeGame);
         });
 
         return newInputList;
     }
-
-     private List<String> transformStringToList(String string, String delimiter) {
-         List<String> newObjectList = new ArrayList<>();
-
-         Scanner scanner = new Scanner(string);
-         scanner.useDelimiter(delimiter);
-         scanner.forEachRemaining(newObjectList::add
-         );
-         return newObjectList;
-     }
 }

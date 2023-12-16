@@ -5,6 +5,7 @@ import main.java.day02cubeconundrum.CubeGame;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static java.lang.Character.getNumericValue;
 
@@ -60,5 +61,15 @@ public class UtilAOC {
             }
         });
         return numArray;
+    }
+
+    public static List<String> transformStringToList(String string, String delimiter) {
+        List<String> newObjectList = new ArrayList<>();
+
+        Scanner scanner = new Scanner(string);
+        scanner.useDelimiter(delimiter);
+        scanner.forEachRemaining(newObjectList::add
+        );
+        return newObjectList;
     }
 }
