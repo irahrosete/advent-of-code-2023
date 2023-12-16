@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Integer.parseInt;
-import static main.java.day02cubeconundrum.CubeUtil.arrangeCubeColours;
-import static main.java.day02cubeconundrum.CubeUtil.transformCubeGameResults;
+import static main.java.day02cubeconundrum.CubeUtil.*;
 import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
 import static main.java.utils.UtilAOC.transformStringToList;
 
@@ -49,25 +48,7 @@ public class CubeConundrumOne {
 //                out.println(rgb);
 
                 List<Integer> allowedCombi = new ArrayList<>(List.of());
-                
-                if (redCount >= (parseInt(redValue.toString()))) {
-                    allowedCombi.add(1);
-                } else {
-                    allowedCombi.add(0);
-                }
-
-                if (greenCount >= (parseInt(greenValue.toString()))) {
-                    allowedCombi.add(1);
-                } else {
-                    allowedCombi.add(0);
-                }
-
-                if (blueCount >= (parseInt(blueValue.toString()))) {
-                    allowedCombi.add(1);
-                } else {
-                    allowedCombi.add(0);
-                }
-
+                checkCombi(allowedCombi, redCount, greenCount, blueCount, redValue, greenValue, blueValue);
                 allowedGames.add(allowedCombi);
 
             });

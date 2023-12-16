@@ -4,13 +4,10 @@ import main.java.day01trebuchet.TrebuchetOne;
 import main.java.day01trebuchet.TrebuchetTwo;
 import main.java.day02cubeconundrum.CubeConundrumOne;
 import main.java.day02cubeconundrum.CubeConundrumTwo;
-import main.java.day02cubeconundrum.CubeGame;
 
 import java.io.IOException;
-import java.util.List;
 
 import static java.lang.System.out;
-import static main.java.utils.UtilAOC.readFileLineToCubeGameArray;
 
 public class AdventOfCode {
     public static void main(String[] args) throws IOException {

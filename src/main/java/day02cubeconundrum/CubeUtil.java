@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static java.lang.Integer.parseInt;
 import static main.java.utils.UtilAOC.transformStringToList;
 
 public class CubeUtil {
@@ -18,6 +19,27 @@ public class CubeUtil {
         });
 
         return newInputList;
+    }
+
+    public static void checkCombi(List<Integer> combination, Integer redCount, Integer greenCount, Integer blueCount,
+                                  AtomicReference<String> red, AtomicReference<String> green, AtomicReference<String> blue) {
+        if (redCount >= (parseInt(red.toString()))) {
+            combination.add(1);
+        } else {
+            combination.add(0);
+        }
+
+        if (greenCount >= (parseInt(green.toString()))) {
+            combination.add(1);
+        } else {
+            combination.add(0);
+        }
+
+        if (blueCount >= (parseInt(blue.toString()))) {
+            combination.add(1);
+        } else {
+            combination.add(0);
+        }
     }
 
     public static void arrangeCubeColours(List<String> combination,
