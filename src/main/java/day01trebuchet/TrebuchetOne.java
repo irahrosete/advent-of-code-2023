@@ -1,4 +1,4 @@
-package main.java.Day01Trebuchet;
+package main.java.day01trebuchet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import static main.java.utils.UtilAOC.*;
 public class TrebuchetOne {
     public Integer printCalibrationValue() throws IOException {
 
-        List<String> inputList = readFileToStringArray("calibration-doc.txt");
+        List<String> inputList = readFileLineToStringArray("calibration-doc.txt");
 
         List<Integer> intList = new ArrayList<>();
 
